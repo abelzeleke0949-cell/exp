@@ -5,22 +5,21 @@ import ExpenseFilters from './component/ExpenseFilters';
 import ExpenseTable from './component/ExpenseTable'
 
 export default function App() {
-  // ከLocalStorage መረጃ ማንበቢያ ስቴት
+
   const [expenses, setExpenses] = useState(() => {
     const saved = localStorage.getItem('expenseDesk');
     return saved ? JSON.parse(saved) : [];
   });
 
-  // የማጣሪያዎች ስቴት
+  
   const [filterCategory, setFilterCategory] = useState('');
   const [filterBank, setFilterBank] = useState('');
   const [filterDateFrom, setFilterDateFrom] = useState('');
   const [filterDateTo, setFilterDateTo] = useState('');
 
-  // የጽሑፍ መልዕክት ስቴት
   const [msg, setMsg] = useState({ text: '', type: '' });
 
-  // ወጪዎች በተቀየሩ ቁጥር ወደ LocalStorage መቆጠቢያ
+  
   useEffect(() => {
     localStorage.setItem('expenseDesk', JSON.stringify(expenses));
   }, [expenses]);
@@ -30,19 +29,18 @@ export default function App() {
     setTimeout(() => setMsg({ text: '', type: '' }), 3000);
   };
 
-  // አዲስ ወጪ መጨመሪያ ፈንክሽን
   const addExpense = (newExpense) => {
     const entry = { ...newExpense, id: Date.now() };
     setExpenses([entry, ...expenses]);
     showMsg('✅ Expense added successfully!', 'success');
   };
 
-  // ወጪ ማጥፊያ ፈንክሽን
+ 
   const deleteExpense = (id) => {
     setExpenses(expenses.filter(e => e.id !== id));
   };
 
-  // ማጣሪያዎችን ማጽጃ
+  
   const clearFilters = () => {
     setFilterCategory('');
     setFilterBank('');
@@ -50,7 +48,7 @@ export default function App() {
     setFilterDateTo('');
   };
 
-  // መረጃዎችን የማጣራት ሎጂክ (Array Filter)
+  
   const filteredExpenses = expenses.filter(e => {
     if (filterCategory && e.category !== filterCategory) return false;
     if (filterBank && e.bank !== filterBank) return false;
@@ -85,4 +83,4 @@ export default function App() {
       </div>
     </div>
   );
-} // የ App ፈንክሽን መዝጊያ (እዚህ ጋር ብቻ ነው መሆን ያለበት!)
+} 
